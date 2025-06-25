@@ -1,0 +1,13 @@
+{
+  "id": "sillymod4312",
+  "name": "Balatro if it was fucking stupid",
+  "display_name": "silly!",
+  "badge_colour": "5d00ff",
+  "author": ["suy"],
+  "description": "wow !",
+  "prefix": "silly",
+  "main_file": "main.lua",
+  "priority": 0,
+  "version": "1.0.0",
+  "dependencies": ["Steamodded (>=1.0.0~BETA-0509c)"]
+}
