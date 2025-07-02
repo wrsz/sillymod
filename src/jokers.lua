@@ -32,7 +32,7 @@ SMODS.Joker {
     key = "cheese_joker",
     unlocked = true,
     discovered =true,
-    loc_txt = {name = "Cheese", text = {"test"}},
+    loc_txt = {name = "Cheese", text = {"secret"}},
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
@@ -40,10 +40,18 @@ SMODS.Joker {
     rarity = 4,
     pos = { x = 1, y = 0 },
     atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chips
+            }
+        }
+    end,
+    config = {extra = {chips = 2170}},
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                chips = 2170
+                chips = card.ability.extra.chips
             }
         end
         if context.setting_blind and cheese == false then
@@ -558,6 +566,69 @@ SMODS.Joker {
             card.ability.extra.xmult = card.ability.extra.xmult + sad_cards * card.ability.extra.xmult_gain
             return {
                 message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult }}
+            }
+        end
+    end
+}
+SMODS.Joker {
+    key = "lucky_card_hand_guy_joker",
+    unlocked = true,
+    discovered =true,
+    loc_txt = {name= "more gambling!!", text = {"hi im john balatro","your lucky cards are lucky in hand now","{E:1,s:0.8,C:inactive}art by cael \"caelfong\" fong!!!!"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 5,
+    rarity = 2,
+    pos = { x = 6, y = 1 },
+    atlas = "joker",
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.hand and SMODS.has_enhancement(context.other_card, 'm_lucky') and not context.end_of_round then
+            local ret = {}
+            if pseudorandom('lucky_mult') < G.GAME.probabilities.normal / 5 then
+                card.lucky_trigger = true
+                ret.mult = 20
+            end
+            if pseudorandom('lucky_money') < G.GAME.probabilities.normal / 15 then
+                card.lucky_trigger = true
+                ret.dollars = 20
+            end
+            if context.other_card.debuff then
+                return {
+                    message = localize('k_debuffed'),
+                    colour = G.C.RED
+                }
+            else 
+                return ret
+            end
+
+        end
+    end
+}
+SMODS.Joker {
+    key = "little_chinese_joker",
+    unlocked = true,
+    discovered =true,
+    loc_txt = {name= "Little Chinese Boy", text = {"{C:blue}+#1#{} Chip"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 20000,
+    rarity = "silly_mythic",
+    pos = { x = 7, y = 1 },
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chips
+            }
+        }
+    end,
+    config = {extra = {chips = 1}},
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips
             }
         end
     end

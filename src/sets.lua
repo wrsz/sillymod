@@ -17,5 +17,7 @@ SMODS.ObjectType {
         ["j_silly_oops_all_big_joker"] = true,
         ["j_silly_bee_joker"] = true,
         ["j_silly_knife_joker"] = true,
+        ["j_silly_lucky_card_hand_guy_joker"] = true,
+        ["j_silly_little_chinese_joker"] = true,
     }
 }
