@@ -2,7 +2,7 @@ SMODS.Joker {
     key = "fong_joker",
     unlocked = true,
     discovered =true,
-    loc_txt = {name= "Cael Fong", text = {"{C:blue}+#2#{} Chips","{C:red}+#1#{} Mult"}},
+    loc_txt = {name= "Cael Fong", text = {"{C:chips}+#2#{} Chips","{C:mult}+#1#{} Mult"}},
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
@@ -493,7 +493,7 @@ SMODS.Joker {
     unlocked = true,
     discovered =true,
     loc_txt = {name= "Oops! All 32767s", text = {"Multiplies all {C:attention}listed{}", "{C:green,E:1}probabilities{} by {C:attention}32767","{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}32767 in 3{C:inactive})"}},
-    blueprint_compat = true,
+    blueprint_compat = false,
     perishable_compat = true,
     eternal_compat = true,
     cost = 20,
@@ -609,7 +609,7 @@ SMODS.Joker {
     key = "little_chinese_joker",
     unlocked = true,
     discovered =true,
-    loc_txt = {name= "Little Chinese Boy", text = {"{C:blue}+#1#{} Chip"}},
+    loc_txt = {name= "Little Chinese Boy", text = {"{C:chips}+#1#{} Chip"}},
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
@@ -629,6 +629,136 @@ SMODS.Joker {
         if context.joker_main then
             return {
                 chips = card.ability.extra.chips
+            }
+        end
+    end
+}
+SMODS.Joker {
+    key = "job_application_joker",
+    unlocked = true,
+    discovered =false,
+    loc_txt = {name= "Job Application", text = {"Earn {C:money}$#1#{} if played", "hand contains a","{C:attention}9{}, a {C:attention}5{}, and a {C:attention}Straight{}", "Salary increase by {C:money}$#4#{}", "every {C:attention}#3#{} rounds","{C:inactive}#2# remaining"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 6,
+    rarity = 2,
+    pos = { x = 0, y = 0 },
+    atlas = "job",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.dollars,
+                card.ability.extra.rounds_remaining,
+                card.ability.extra.rounds_remaining_reset,
+                card.ability.extra.dollar_increase
+            }
+        }
+    end,
+    config = {extra = {dollars = 18, rounds_remaining = 4, dollar_increase = 2,rounds_remaining_reset = 4}},
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands["Straight"])then
+            local has9 = false
+            local has5 = false
+            for i,v in pairs(context.scoring_hand) do
+                if v:get_id() == 5 then
+                    has5 = true
+                elseif v:get_id() == 9 then
+                    has9 = true
+                end
+            end
+            if has9 and has5 then
+                return {
+                    dollars = card.ability.extra.dollars
+                }
+            end
+        end
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            if card.ability.extra.rounds_remaining ~= 0 then
+                card.ability.extra.rounds_remaining = card.ability.extra.rounds_remaining - 1
+            end
+            if card.ability.extra.rounds_remaining == 0 then
+                card.ability.extra.rounds_remaining = card.ability.extra.rounds_remaining_reset
+                card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollar_increase
+                return {
+                    message = "Upgrade!",
+                    colour = G.C.MONEY,
+                }
+            end
+        end
+    end
+}
+SMODS.Joker {
+    key = "john_joker",
+    unlocked = true,
+    discovered =false,
+    loc_txt = {name= "John Balatro", text = {"{X:dark_edition,C:white}John{} {X:dark_edition,C:white}Balatro"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 66,
+    rarity = "silly_mythic",
+    pos = { x = 8, y = 1 },
+    atlas = "joker",
+    no_collection = true,
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.interest_cap_multiplyer,
+                card.ability.extra.interest_multiplyer
+            }
+        }
+    end,
+    config = {extra = {interest_cap_multiplyer = 90000000000, interest_multiplyer = 45}},
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.interest_cap = G.GAME.interest_cap * card.ability.extra.interest_cap_multiplyer
+        G.GAME.interest_amount = G.GAME.interest_amount * card.ability.extra.interest_multiplyer
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.interest_cap = G.GAME.interest_cap / card.ability.extra.interest_cap_multiplyer
+        G.GAME.interest_amount = G.GAME.interest_amount / card.ability.extra.interest_multiplyer
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            for i = 1, to_number(to_big(G.GAME.dollars)), 1 do
+                SMODS.add_card {key = "j_joker", set = "Joker", area=G.jokers, edition = "e_negative"}
+            end
+        end
+    end
+}
+SMODS.Joker {
+    key = "sigma_joker",
+    unlocked = true,
+    discovered =false,
+    loc_txt = {name= "Sigma Joker", text = {"#1# #2# #3#"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 5,
+    rarity = 2,
+    pos = { x = 8, y = 1 },
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chips,
+                card.ability.extra.chips_increase,
+                card.ability.extra.chips_increase_increase
+            }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips   
+            }
+        end
+        if context.before and context.main_eval and not context.blueprint then
+            card.ability.extra.chips = card.ability.extra.chips+card.ability.extra.chips_increase
+            card.ability.extra.chips_increase = card.ability.extra.chips_increase + card.ability.extra.chips_increase_increase
+            return {
+                message = "Upgrade!",
+                colour = G.C.CHIPS
             }
         end
     end
