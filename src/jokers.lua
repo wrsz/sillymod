@@ -736,7 +736,7 @@ SMODS.Joker {
     eternal_compat = true,
     cost = 5,
     rarity = 2,
-    pos = { x = 8, y = 1 },
+    pos = { x = 9, y = 1 },
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
         return {
