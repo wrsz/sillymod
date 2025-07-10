@@ -747,6 +747,7 @@ SMODS.Joker {
             }
         }
     end,
+    config = {extra ={chips = 0, chips_increase = 1, chips_increase_increase = 1}},
     calculate = function(self, card, context)
         if context.joker_main then
             return {
