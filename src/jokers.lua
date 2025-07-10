@@ -730,7 +730,7 @@ SMODS.Joker {
     key = "sigma_joker",
     unlocked = true,
     discovered =false,
-    loc_txt = {name= "Sigma Joker", text = {"#1# #2# #3#"}},
+    loc_txt = {name= "Sigma Joker", text = {"This Joker gains an increasing number","of Chips for each played hand","{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and gains {C:chips}+#2#{C:inactive} Chips per hand)"}},
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
