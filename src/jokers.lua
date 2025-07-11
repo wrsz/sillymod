@@ -1,7 +1,7 @@
 SMODS.Joker {
     key = "fong_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     loc_txt = {name= "Cael Fong", text = {"{C:chips}+#2#{} Chips","{C:mult}+#1#{} Mult"}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -31,7 +31,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "cheese_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     loc_txt = {name = "Cheese", text = {"secret"}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -73,7 +73,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "naughty_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
@@ -122,7 +122,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "cat_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
@@ -176,7 +176,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "woker_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
@@ -313,6 +313,7 @@ SMODS.Joker {
     key = "squid_guy_joker",
     atlas = "joker",
     pos = {x = 8, y = 0},
+    discovered = true,
     config = {extra = {xmult = 1, xmult_gain = 1}},
     loc_vars = function(self, info_queue, card)
         return {
@@ -353,6 +354,7 @@ SMODS.Joker {
     key = "fish_joker",
     atlas = "joker",
     pos = {x = 9, y = 0},
+    discovered = true,
     cost = 8,
     rarity = 3,
     blueprint_compat = true,
@@ -392,6 +394,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "reroll_guy_joker",
     cost = -8,
+    discovered = true,
     rarity = 2,
     config = { extra = { xmult = 1 , xmult_gain = 0.2 }, },
     loc_vars = function(self, info_queue, card)
@@ -428,7 +431,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "evil_chemistry_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     loc_txt = {name= "Evil Chemistry", text = {"Swaps Chips and Mult"}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -451,7 +454,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "squared_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     loc_txt = {name= "Squared Joker", text = {"{X:dark_edition,C:white}^2{} Mult if played", "hand contains a", "scoring {C:attention}Ace{},{C:attention} 4{}, and {C:attention}9", "{E:1,s:0.8,C:inactive}Beautiful Solutions, Gentlemen"}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -491,7 +494,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "oops_all_big_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     loc_txt = {name= "Oops! All 32767s", text = {"Multiplies all {C:attention}listed{}", "{C:green,E:1}probabilities{} by {C:attention}32767","{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}32767 in 3{C:inactive})"}},
     blueprint_compat = false,
     perishable_compat = true,
@@ -514,7 +517,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "bee_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     loc_txt = {name= "bee guy", text = {"{X:mult,C:white}X#1#{} Mult but he {s:5}DIES{} after :("}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -539,7 +542,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "knife_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     loc_txt = {name= "Kitchen Knife", text = {"This Joker gains {X:mult,C:white}X#2#{}","when a card is destroyed","{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -573,12 +576,13 @@ SMODS.Joker {
 SMODS.Joker {
     key = "lucky_card_hand_guy_joker",
     unlocked = true,
-    discovered =true,
-    loc_txt = {name= "more gambling!!", text = {"hi im john balatro","your lucky cards are lucky in hand now","{E:1,s:0.8,C:inactive}art by cael \"caelfong\" fong!!!!"}},
+    discovered = true,
+    loc_txt = {name= "more gambling!!", text = {"hi im john balatro","your {C:attention}lucky{} cards are {C:attention}lucky{} in hand now","{E:1,s:0.8,C:inactive}art by cael \"caelfong\" fong!!!!"}},
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
     cost = 5,
+    enhancement_gate = 'm_lucky',
     rarity = 2,
     pos = { x = 6, y = 1 },
     atlas = "joker",
@@ -608,7 +612,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "little_chinese_joker",
     unlocked = true,
-    discovered =true,
+    discovered = true,
     loc_txt = {name= "Little Chinese Boy", text = {"{C:chips}+#1#{} Chip"}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -636,7 +640,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "job_application_joker",
     unlocked = true,
-    discovered =false,
+    discovered = false,
     loc_txt = {name= "Job Application", text = {"Earn {C:money}$#1#{} if played", "hand contains a","{C:attention}9{}, a {C:attention}5{}, and a {C:attention}Straight{}", "Salary increase by {C:money}$#4#{}", "every {C:attention}#3#{} rounds","{C:inactive}#2# remaining"}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -691,7 +695,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "john_joker",
     unlocked = true,
-    discovered =false,
+    discovered = false,
     loc_txt = {name= "John Balatro", text = {"{X:dark_edition,C:white}John{} {X:dark_edition,C:white}Balatro"}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -729,7 +733,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "sigma_joker",
     unlocked = true,
-    discovered =false,
+    discovered = false,
     loc_txt = {name= "Sigma Joker", text = {"This Joker gains an increasing number","of Chips for each played hand","{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and gains {C:chips}+#2#{C:inactive} Chips per hand)"}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -763,4 +767,32 @@ SMODS.Joker {
             }
         end
     end
+}
+SMODS.Joker {
+    key = "window_joker",
+    unlocked = true,
+    discovered = true,
+    loc_txt = {name= "Window", text = {"you get dollar for ace"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 4,
+    rarity = 1,
+    pos = { x = 0, y = 2 },
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.money
+            }
+        }
+    end,
+    config = {extra ={money = 1}},
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() == 14 then
+                return {
+                    dollars = card.ability.extra.money
+                }
+            end
+        end    
 }
