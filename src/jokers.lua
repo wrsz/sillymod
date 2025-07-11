@@ -396,7 +396,7 @@ SMODS.Joker {
     cost = -8,
     discovered = true,
     rarity = 2,
-    config = { extra = { xmult = 1 , xmult_gain = 0.2 }, },
+    config = { extra = { xmult = 1 , xmult_gain = 0.2 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.xmult, card.ability.extra.xmult_gain } }
     end,
@@ -772,7 +772,7 @@ SMODS.Joker {
     key = "window_joker",
     unlocked = true,
     discovered = true,
-    loc_txt = {name= "Window", text = {"you get dollar for ace"}},
+    loc_txt = {name= "Window", text = {"Played {C:attention}Aces{}","earn {C:money}#1#{} when scored"}},
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
@@ -796,3 +796,24 @@ SMODS.Joker {
             end
         end    
 }
+SMODS.Joker {
+    key = "massive_joker",
+    unlocked = true,
+    discovered = true,
+    loc_txt = {name= "Massive Joker", text = {"massive?"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 4,
+    rarity = 1,
+    pos = { x = 0, y = 2 },
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.money
+            }
+        }
+    end,
+    config = {extra ={money = 1}},
+} 
