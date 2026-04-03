@@ -568,7 +568,7 @@ SMODS.Joker {
             end
             card.ability.extra.xmult = card.ability.extra.xmult + sad_cards * card.ability.extra.xmult_gain
             return {
-                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult }}
+                message = localize { type = "variable", key = "a_xmult", vars = { card.ability.extra.xmult }}
             }
         end
     end
@@ -582,24 +582,24 @@ SMODS.Joker {
     perishable_compat = true,
     eternal_compat = true,
     cost = 5,
-    enhancement_gate = 'm_lucky',
+    enhancement_gate = "m_lucky",
     rarity = 2,
     pos = { x = 6, y = 1 },
     atlas = "joker",
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand and SMODS.has_enhancement(context.other_card, 'm_lucky') and not context.end_of_round then
+        if context.individual and context.cardarea == G.hand and SMODS.has_enhancement(context.other_card, "m_lucky") and not context.end_of_round then
             local ret = {}
-            if pseudorandom('lucky_mult') < G.GAME.probabilities.normal / 5 then
+            if pseudorandom("lucky_mult") < G.GAME.probabilities.normal / 5 then
                 card.lucky_trigger = true
                 ret.mult = 20
             end
-            if pseudorandom('lucky_money') < G.GAME.probabilities.normal / 15 then
+            if pseudorandom("lucky_money") < G.GAME.probabilities.normal / 15 then
                 card.lucky_trigger = true
                 ret.dollars = 20
             end
             if context.other_card.debuff then
                 return {
-                    message = localize('k_debuffed'),
+                    message = localize("k_debuffed"),
                     colour = G.C.RED
                 }
             else 
@@ -659,7 +659,7 @@ SMODS.Joker {
             }
         }
     end,
-    config = {extra = {dollars = 18, rounds_remaining = 4, dollar_increase = 2,rounds_remaining_reset = 4}},
+    config = {extra = {dollars = 9, rounds_remaining = 4, dollar_increase = 4,rounds_remaining_reset = 4}},
     calculate = function(self, card, context)
         if context.joker_main and next(context.poker_hands["Straight"])then
             local has9 = false
@@ -733,7 +733,7 @@ SMODS.Joker {
 SMODS.Joker {
     key = "sigma_joker",
     unlocked = true,
-    discovered = false,
+    discovered = true,
     loc_txt = {name= "Sigma Joker", text = {"This Joker gains an increasing number","of Chips for each played hand","{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips and gains {C:chips}+#2#{C:inactive} Chips per hand)"}},
     blueprint_compat = true,
     perishable_compat = true,
@@ -772,11 +772,11 @@ SMODS.Joker {
     key = "window_joker",
     unlocked = true,
     discovered = true,
-    loc_txt = {name= "Window", text = {"Played {C:attention}Aces{}","earn {C:money}#1#{} when scored"}},
+    loc_txt = {name= "Window", text = {"Played {C:attention}Aces{}","earn {C:money}$#1#{} when scored"}},
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    cost = 4,
+    cost = 6,
     rarity = 1,
     pos = { x = 0, y = 2 },
     atlas = "joker",
@@ -787,7 +787,7 @@ SMODS.Joker {
             }
         }
     end,
-    config = {extra ={money = 1}},
+    config = {extra ={money = 4}},
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:get_id() == 14 then
                 return {
@@ -804,9 +804,36 @@ SMODS.Joker {
     blueprint_compat = true,
     perishable_compat = true,
     eternal_compat = true,
-    cost = 4,
-    rarity = 1,
-    pos = { x = 0, y = 2 },
+    cost = 60,
+    rarity = 3,
+    display_size = { w = 142, h = 190 },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.mult
+            }
+        }
+    end,
+    config = {extra ={mult = 200}},
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end
+} 
+SMODS.Joker {
+    key = "updog_joker",
+    unlocked = true,
+    discovered = true,
+    loc_txt = {name= "guy", text = {"something to do with polychrome" ,"{E:1,s:0.8,C:inactive}(its me!!!!)"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 5,
+    rarity = 2,
+    pos = { x = 2, y = 2 },
     atlas = "joker",
     loc_vars = function(self, info_queue, card)
         return {
@@ -815,5 +842,142 @@ SMODS.Joker {
             }
         }
     end,
-    config = {extra ={money = 1}},
-} 
+    config = {extra ={money = 8}},
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if context.other_card.edition and context.other_card.edition.key == "e_polychrome" then
+            return {
+                dollars = card.ability.extra.money
+            }
+            end
+        end
+    end
+}
+SMODS.Joker {
+    key = "seal_joker",
+    unlocked = true,
+    discovered = true,
+    loc_txt = {name= "Seal or No Seal?", text = {"Scoring cards have a","{C:green}#2# in #1#{} chance to", "gain a random seal","{E:1,s:0.8,C:inactive}They highly recommend that you choose seal"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 7,
+    rarity = 3,
+    pos = { x = 1, y = 2 },
+    atlas = "joker",
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.chance,
+                G.GAME.probabilities.normal
+            }
+        }
+    end,
+    config = {extra ={chance = 4}},
+    calculate = function(self, card, context)
+        if context.before and context.main_eval then        
+            for i,v in ipairs(context.scoring_hand) do
+                if not v.seal and pseudorandom("seal") < G.GAME.probabilities.normal / card.ability.extra.chance then
+                    v:set_seal(SMODS.poll_seal({ guaranteed = true }),nil, true)
+                end
+            end
+        end
+    end
+}
+SMODS.Joker {
+    key = "carrot_guy_joker",
+    unlocked = true,
+    discovered = true,
+    loc_txt = {name= "carrot if it was a cat for some reason", text = {"2 dolla per hand played"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 5,
+    rarity = 1,
+    pos = { x = 3, y = 2 },
+    atlas = "joker",
+     loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.dollars
+            }
+        }
+    end,
+    config = {extra ={dollars = 2}},
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                dollars = card.ability.extra.dollars
+            }
+        end
+    end
+}
+SMODS.Joker {
+    key = "lemon_watch_joker",
+    unlocked = true,
+    discovered = true,
+    loc_txt = {name= "Lemon Watch", text = {"Each scored {C:attention}3{} gives {C:mult}+#1#{} Mult"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 5,
+    rarity = 1,
+    pos = { x = 4, y = 2 },
+    atlas = "joker",
+     loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.mult
+            }
+        }
+    end,
+    config = {extra ={mult = 14}},
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 3 then
+                return {
+                    mult=card.ability.extra.mult
+                }
+            end
+        end
+    end
+}
+SMODS.Joker {
+    key = "inspired_joker",
+    unlocked = true,
+    discovered = true,
+    loc_txt = {name= "paint.", text = {"Each {C:dark_edition}Polychrome{} Joker","gives {C:attention}+1{} hand size"}},
+    blueprint_compat = true,
+    perishable_compat = true,
+    eternal_compat = true,
+    cost = 8,
+    rarity = 3,
+    pos = { x = 5, y = 2 },
+    atlas = "joker",
+     loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                card.ability.extra.h_size_per
+            }
+        }
+    end,
+    config = {extra ={h_size_per = 1}},
+    add_to_deck = function(self, card, from_debuff)
+        local poly = 0
+        for i, v in ipairs(G.jokers.cards) do
+            if v.edition.polychrome 
+                then poly = poly+1 
+            end
+        end   
+        G.hand:change_size(poly*card.ability.extra.h_size_per)
+    remove_from_deck = function(self, card, from_debuff)
+        local poly = 0
+        for i, v in ipairs(G.jokers.cards) do
+            if v.edition
+                then poly = poly+1 
+            end
+        end   
+        G.hand:change_size(-poly*card.ability.extra.h_size_per)
+    end
+end
+}

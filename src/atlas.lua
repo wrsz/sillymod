@@ -16,3 +16,21 @@ SMODS.Atlas {
     py = 1575,
     path = "job.png"
 }
+SMODS.Atlas {
+    key = "cardlc",
+    px = 71,
+    py = 95,
+    path = "cardlc.png"
+}
+SMODS.Atlas {
+    key = "cardhc",
+    px = 71,
+    py = 95,
+    path = "cardhc.png"
+}
+SMODS.Atlas {
+    key = "tarot",
+    px = 71,
+    py = 95,
+    path = "tarot.png"
+}
